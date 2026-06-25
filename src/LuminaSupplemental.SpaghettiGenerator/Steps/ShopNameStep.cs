@@ -103,6 +103,14 @@ public partial class ShopNameStep : GeneratorStep
             {1769963,"Gemstone Trader"},
             {1769964,"Gemstone Trader"},
             {262919,"Doman Junkmonger"},
+            {263124,"Purchase Items"},
+            {263125,"Purchase Items"},
+            {263127,"Purchase Items"},
+            {263128,"Purchase Items"},
+            {263129,"Purchase Items"},
+            {263148,"Purchase Items"},
+            {263150,"Purchase Items"},
+            {263294,"Purchase Items"},
         };
         foreach( var shopName in shops )
         {

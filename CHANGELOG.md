@@ -13,6 +13,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Removed+
 
+
+## [4.3.7] - 2026-06-25
+
+### Changed
+- General data update
+
 ## [4.3.6] - 2026-06-08
 
 ### Added
