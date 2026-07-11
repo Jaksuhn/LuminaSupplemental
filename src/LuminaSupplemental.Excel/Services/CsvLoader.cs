@@ -81,7 +81,6 @@ public static class CsvLoader
     public const string FieldOpCofferResourceName = "LuminaSupplemental.Excel.Generated.FieldOpCoffer.csv";
     public const string QuestRequiredItemResourceName = "LuminaSupplemental.Excel.Generated.QuestRequiredItem.csv";
     public const string BNpcLinkResourceName = "LuminaSupplemental.Excel.Generated.BNpcLink.csv";
-    public const string BNpcLinkNoGubalResourceName = "LuminaSupplemental.Excel.Generated.BNpcLinkNoGubal.csv";
     public const string BGMOrchestrionResourceName = "LuminaSupplemental.Excel.Generated.BGMOrchestrion.csv";
     public const string RelicWeaponResourceName = "LuminaSupplemental.Excel.Generated.RelicWeapon.csv";
     public const string RelicToolResourceName = "LuminaSupplemental.Excel.Generated.RelicTool.csv";

@@ -15,43 +15,15 @@ using LuminaSupplemental.SpaghettiGenerator.Steps.Parsers;
 
 namespace LuminaSupplemental.SpaghettiGenerator.Steps;
 
-public partial class BNpcLinkNoGubalStep : BNpcLinkStep
-{
-    public BNpcLinkNoGubalStep(GubalApi gubalApi, GameData gameData) : base(gubalApi, gameData)
-    {
-
-    }
-
-    public override string Name => "BNPC Links (No Gubal)";
-
-    public override string FileName => "BNpcLinkNoGubal.csv";
-
-    public override List<ICsv> Run(Dictionary<Type, List<ICsv>> stepData)
-    {
-        List<BNpcLink> items = new ();
-        if (stepData.ContainsKey(typeof(MobSpawnStep)))
-        {
-            var mobSpawnPositions = stepData[typeof(MobSpawnStep)].Cast<MobSpawnPosition>().ToList();
-            items.AddRange(this.Process(mobSpawnPositions));
-        }
-
-        items.AddRange(this.ProcessTrackyData());
-
-        return [..items.Where(c => this.nameSheet.HasRow(c.BNpcNameId) && this.baseSheet.HasRow(c.BNpcBaseId) && (c.BNpcBaseId != 0 && c.BNpcNameId != 0)).DistinctBy(c => (c.BNpcBaseId, c.BNpcNameId)).OrderBy(c => c.BNpcNameId).ThenBy(c => c.BNpcBaseId).Select(c => c)];
-    }
-}
-
 public partial class BNpcLinkStep : GeneratorStep
 {
-    private readonly GubalApi gubalApi;
     protected readonly ExcelSheet<BNpcName> nameSheet;
     protected readonly ExcelSheet<BNpcBase> baseSheet;
 
-    public BNpcLinkStep(GubalApi gubalApi, GameData gameData)
+    public BNpcLinkStep(GameData gameData)
     {
         this.nameSheet = gameData.GetExcelSheet<BNpcName>()!;
         this.baseSheet = gameData.GetExcelSheet<BNpcBase>()!;
-        this.gubalApi = gubalApi;
     }
     public override Type OutputType => typeof(BNpcLink);
 
@@ -70,7 +42,6 @@ public partial class BNpcLinkStep : GeneratorStep
             items.AddRange(this.Process(mobSpawnPositions));
         }
 
-        items.AddRange(this.ProcessGubalData());
         items.AddRange(this.ProcessTrackyData());
 
         return [..items.Where(c => this.nameSheet.HasRow(c.BNpcNameId) && this.baseSheet.HasRow(c.BNpcBaseId) && c.BNpcBaseId != 0 && c.BNpcNameId != 0).DistinctBy(c => (c.BNpcBaseId, c.BNpcNameId)).OrderBy(c => c.BNpcNameId).ThenBy(c => c.BNpcBaseId).Select(c => c)];
@@ -79,25 +50,5 @@ public partial class BNpcLinkStep : GeneratorStep
     protected List<BNpcLink> Process(List<MobSpawnPosition> positions)
     {
         return positions.Select(e => (e.BNpcBaseId, e.BNpcNameId)).Distinct().Where(c => c.BNpcBaseId != 0 && c.BNpcNameId != 0).Select(c => new BNpcLink(c.BNpcNameId, c.BNpcBaseId)).OrderBy(c => c.BNpcNameId).ThenBy(c => c.BNpcBaseId).ToList();
-    }
-
-    protected List<BNpcLink> ProcessGubalData()
-    {
-        var drops = new List<BNpcLink>();
-        var bNpcLinks = this.gubalApi.GetGubalBNpcLinks();
-        foreach (var bNpcLink in bNpcLinks)
-        {
-            if (bNpcLink.BNpcBase == 0 || bNpcLink.BNpcName == 0)
-            {
-                continue;
-            }
-            drops.Add(new BNpcLink()
-            {
-                BNpcBaseId = bNpcLink.BNpcBase,
-                BNpcNameId = bNpcLink.BNpcName
-            });
-        }
-
-        return drops;
     }
 }

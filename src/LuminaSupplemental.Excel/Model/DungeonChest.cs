@@ -30,6 +30,7 @@ namespace LuminaSupplemental.Excel.Model
         public RowRef< ContentFinderCondition > ContentFinderCondition;
         public RowRef< Map > Map;
         public RowRef< TerritoryType > TerritoryType;
+        public RowRef< Treasure > Treasure;
 
         public DungeonChest(uint rowId, byte chestNo,uint contentFinderConditionId, uint mapId, uint territoryTypeId, uint treasureId, uint dungeonBossId = 0 )
         {
@@ -83,6 +84,7 @@ namespace LuminaSupplemental.Excel.Model
             ContentFinderCondition = new RowRef< ContentFinderCondition >( module, ContentFinderConditionId);
             Map = new RowRef< Map >( module, MapId);
             TerritoryType = new RowRef< TerritoryType >( module, TerritoryTypeId);
+            Treasure = new RowRef< Treasure >( module, TreasureId);
         }
     }
 }
