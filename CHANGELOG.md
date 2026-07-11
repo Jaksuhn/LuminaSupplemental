@@ -14,6 +14,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Removed+
 
 
+## [5.0.1] - 2026-07-11
+
+### Changed
+- Updated READMEs to include the source of each sheet
+- Updated FestivalName (thanks @Minmoose)
+
 ## [5.0.0] - 2026-07-11
 
 ### Changed
